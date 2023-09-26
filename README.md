@@ -1,4 +1,4 @@
-# fedoramarathoninstaller
+# fedora marathon installer
 Fedora x86_64 Marathon Installer
 
 Bash script specifically to install the AlephOne Marathon Trilogy in Fedora linux.
