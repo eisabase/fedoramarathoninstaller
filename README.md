@@ -14,3 +14,5 @@ This script is a modified version of the pi-apps version(gplv3). It installs Ale
 What it does. 1. installs redhat-lsb, but this isn't necessary for the current script state. 2. downgrades ffmpeg. 3. replaces proprietary ffmpeg with free replacements. 4. Installs all development dependancies. 5. Installs Marathon trilogy and cleans up after itself.
 Enjoy!
 ./install to install. ./uninstall to uninstall
+
+To link absolute path of the icons, go into .local/share/applications/marathon.desktop and link the icon paths.
