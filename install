@@ -1,0 +1,94 @@
+#!/bin/bash
+
+version=20230529
+
+#made according to the instructions from the developer, but was not originally created for the Pi
+#https://github.com/Aleph-One-Marathon/alephone/wiki/Linux%20Install%20Instructions
+
+sudo dnf install redhat-lsb
+sudo dnf downgrade ffmpeg-libs
+sudo dnf install boost-devel SDL2-devel mesa-libGLU-devel SDL2_image-devel SDL2_net-devel SDL2_ttf-devel speexdsp-devel zziplib-devel libavcodec-free-devel libavformat-free-devel libavutil-free-devel libswscale-free-devel libswresample-free-devel libpng-devel libcurl-devel openssl-devel miniupnpc-devel unzip --allowerasing
+
+# print installed sdl2 package versions for debugging
+rpm -qa | grep SDL2
+
+lsb_release -c | sed 's/..........//' > ./codename
+DISTRIB_CODENAME=$(cat ./codename)
+rm ./codename
+
+#creating a directory for game files and remove previous gamefiles
+rm -rf  ~/AlephOneData
+mkdir -p ~/AlephOneData
+
+#installation of the Marathon game engine (Aleph One)
+cd /tmp
+wget https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/AlephOne-${version}.tar.bz2 || exit 1
+
+printf "Unzipping...\n"
+sudo rm -rf AlephOne-${version}
+tar xjvf AlephOne-${version}.tar.bz2 || printf "Unable to decompress source code\n" exit 1
+sudo rm -f AlephOne-*.tar.bz2
+printf "Done\n"
+
+printf "Compilation...\n"
+cd AlephOne-${version}
+
+sudo ./configure --without-miniupnpc --build=x86_64-redhat-linux
+
+sudo make -j$(nproc)
+sudo make install
+cd ..
+sudo rm -rf AlephOne-${version}
+printf "Done with build\n"
+
+#downloading Marathon Trilogy game data files
+sudo rm -rf Marathon*-Data.zip
+sudo rm -rf Marathon*
+printf "Downloading Marathon Trilogy game data files...\n"
+wget https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/Marathon-${version}-Data.zip || exit 1
+unzip Marathon-${version}-Data.zip || printf "Could not extract\n"
+mv Marathon/ ~/AlephOneData/ || printf "Could not move directory\n"
+printf "Marathon installed\n"
+wget https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/Marathon2-${version}-Data.zip || exit 1
+unzip Marathon2-${version}-Data.zip || printf "Could not extract\n"
+mv "Marathon 2" ~/AlephOneData/Marathon_2 || printf "Could not move directory\n"
+printf "Marathon 2 installed\n"
+wget https://github.com/Aleph-One-Marathon/alephone/releases/download/release-${version}/MarathonInfinity-${version}-Data.zip || exit 1
+unzip MarathonInfinity-${version}-Data.zip || printf "Could not extract\n"
+mv "Marathon Infinity" ~/AlephOneData/Marathon_Infinity || printf "Could not move directory\n"
+sudo rm -rf Marathon*-Data.zip
+printf "Marathon Infinity installed\n"
+
+#create menu launchers
+mkdir -p ~/.local/share/applications
+printf "Creating Menu launchers...\n"
+echo "[Desktop Entry]
+Version=1.0
+Name=Marathon
+Exec=/usr/local/bin/alephone $HOME/AlephOneData/Marathon/ %u
+Icon=$(dirname "$0")/icon-64.png
+Terminal=false
+Type=Application
+Categories=Game;" > ~/.local/share/applications/marathon.desktop
+
+echo "[Desktop Entry]
+Version=1.0
+Name=Marathon 2
+Exec=/usr/local/bin/alephone $HOME/AlephOneData/Marathon_2/ %u
+Icon=$(dirname "$0")/icon-64.png
+Terminal=false
+Type=Application
+Categories=Game;" > ~/.local/share/applications/marathon2.desktop
+
+echo "[Desktop Entry]
+Version=1.0
+Name=Marathon Infinity
+Exec=/usr/local/bin/alephone $HOME/AlephOneData/Marathon_Infinity/ %u
+Icon=$(dirname "$0")/icon-64.png
+Terminal=false
+Type=Application
+Categories=Game;" > ~/.local/share/applications/marathoninfinity.desktop
+
+printf "Marathon Trilogy Installed\n"
+
+printf "To prevent data loss, do not delete the $HOME/AlephOneData folder\n"
