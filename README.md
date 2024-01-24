@@ -9,7 +9,7 @@ WARNING UPDATE: So apparently the gnome desktop in fedora is not configured to u
 
 Requirements:
 1. X86_64 Fedora linux or similar up-to-date rpm linux
-2. DNF pacakge manager
+2. DNF package manager
 3. wget and the base C compiling tools
 4. Configured Sudo to run the script
 
