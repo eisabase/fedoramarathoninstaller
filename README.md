@@ -14,7 +14,7 @@ Requirements:
 4. Configured Sudo to run the script
 
 This script is a modified version of the pi-apps version(gplv3). It installs AlephOne and the 3 Marathon games for x86_64 fedora. The script is still very basic, I just tweaked some things so you can run the installer as a user. If you don't have dnf or you have a different architecture, it's up to you to make the right changes.
-What it does. 1. installs redhat-lsb, but this isn't necessary for the current script state. 2. downgrades ffmpeg. 3. replaces proprietary ffmpeg with free replacements. 4. Installs all development dependencies. 5. Installs Marathon trilogy and cleans up after itself.
+What it does. 1. installs redhat-lsb, but this isn't necessary for the current script state. 2. downgrades ffmpeg. 3. replaces proprietary ffmpeg with open-source replacements. 4. Installs all development dependencies. 5. Installs Marathon trilogy and cleans up after itself.
 Enjoy!
 ./install to install. ./uninstall to uninstall
 
