@@ -8,7 +8,7 @@ WARNING: if you use proprietary ffmpeg in a end-user application, look at the pa
 WARNING UPDATE: So apparently the gnome desktop in fedora is not configured to use the Open source ffmpeg alternatives, however this causes an issue with some packages like OpenShot and OBS-Studio. The issue isn't related to the open source implementation of ffmpeg, but rather that OpenShot and OBS-Studio creates a dependancy issue when used between these files and what the repository calls for in the Gnome package group, where as OpenShot and OBS can work with the "free" version of FFMPEG(different from the open source packages), which then causes the error. So if you run into an issue with updating gnome, you MAY have to uninstall OBS and OpenShot first to complete the upgrade. This also seems to effect the Chromium Browser, however DNF just downgrades chromium instead of causing a dependancy issue. Wow, Fedora never ceases to amaze.
 
 Requirements:
-1. Fedora linux
+1. Fedora linux or similar up-to-date rpm linux
 2. DNF pacakge manager
 3. wget and the base C compiling tools
 4. Configured Sudo to run the script
