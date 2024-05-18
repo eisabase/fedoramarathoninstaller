@@ -2,15 +2,10 @@
 
 version=20240513
 
-#made according to the instructions from the developer, but was not originally created for the Pi
-#https://github.com/Aleph-One-Marathon/alephone/wiki/Linux%20Install%20Instructions
-
-sudo dnf install redhat-lsb
-sudo dnf downgrade ffmpeg-libs
-sudo dnf install boost-devel SDL2-devel mesa-libGLU-devel SDL2_image-devel SDL2_net-devel SDL2_ttf-devel speexdsp-devel zziplib-devel libavcodec-free-devel libavformat-free-devel libavutil-free-devel libswscale-free-devel libswresample-free-devel libpng-devel libcurl-devel openssl-devel miniupnpc-devel unzip --allowerasing
+sudo apt install libboost-all-dev libsdl2-dev libglu1-mesa-dev libsdl2-image-dev libsdl2-net-dev libsdl2-ttf-dev libsndfile1-dev libspeexdsp-dev libzzip-dev libavcodec-dev libavformat-dev libopenal-dev libavutil-dev libswscale-dev libswresample-dev libpng-dev libcurl4-openssl-dev libminiupnpc-dev build-essential unzip
 
 # print installed sdl2 package versions for debugging
-rpm -qa | grep SDL2
+dpkg -l | grep sdl2
 
 lsb_release -c | sed 's/..........//' > ./codename
 DISTRIB_CODENAME=$(cat ./codename)
