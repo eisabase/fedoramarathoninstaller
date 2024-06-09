@@ -28,7 +28,7 @@ printf "Done\n"
 printf "Compilation...\n"
 cd AlephOne-${version}
 
-sudo ./configure --without-miniupnpc --build=x86_64-redhat-linux
+sudo ./configure --without-miniupnpc --build=x86_64-linux
 
 sudo make -j$(nproc)
 sudo make install
